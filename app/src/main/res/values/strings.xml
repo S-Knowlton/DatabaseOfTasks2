@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DatabaseOfTasks</string>
+    <string name="timer">Timer: </string>
+    <string name="create">Create </string>
+    <string name="update">Update </string>
+    <string name="read">Read</string>
+    <string name="delete">Delete</string>
+</resources>
