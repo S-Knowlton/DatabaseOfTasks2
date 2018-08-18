@@ -34,36 +34,36 @@ public class DBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addTasks(Tasks tasks){
+    public void addTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_NAME, tasks.getName());
+        values.put(KEY_NAME, task.getName());
 
         db.insert(TABLENAME, null, values);
         db.close();
     }
 
-    public Tasks getTasks(int id){
+    public Task getTask(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLENAME, new String[]{KEY_ID, KEY_NAME}, KEY_ID + "=?",
                 new String[] {String.valueOf(id) }, null, null, null,null);
         if(cursor != null)
             cursor.moveToFirst();
-        Tasks tasks = new Tasks(Integer.parseInt(cursor.getString(0)),
+        Task task = new Task(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1));
-        return tasks;
+        return task;
     }
 
-    public List<Tasks> getAllTasks() {
-        List<Tasks> tasks = new ArrayList<Tasks>();
+    public List<Task> getAllTasks() {
+        List<Task> tasks = new ArrayList<Task>();
         String selectQuery = "SELECT * FROM " + TABLENAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Tasks task = new Tasks();
+                Task task = new Task();
                 task.setId(Integer.parseInt(cursor.getString(0)));
                 task.setName(cursor.getString(2));
                 tasks.add(task);
@@ -83,19 +83,19 @@ public class DBHandler extends SQLiteOpenHelper{
 
     }
 
-    public int updateTasks(Tasks tasks){
+    public int updateTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, tasks.getName());
+        values.put(KEY_NAME, task.getName());
 
         return db.update(TABLENAME, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(tasks.getId())});
+                new String[]{String.valueOf(task.getId())});
     }
 
-    public void deleteTask(Tasks tasks){
+    public void deleteTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLENAME, KEY_ID + " = ?",
-                new String[]{String.valueOf(tasks.getId())});
+                new String[]{String.valueOf(task.getId())});
         db.close();
     }
 }
