@@ -17,7 +17,8 @@
         android:id="@+id/create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create" />
+        android:text="@string/create"
+        android:onClick="onClickCreate"/>
 
     <ListView
         android:id="@+id/task_viewer"

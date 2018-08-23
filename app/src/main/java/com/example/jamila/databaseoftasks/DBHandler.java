@@ -26,12 +26,14 @@ public class DBHandler extends SQLiteOpenHelper{
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + "TEXT"
                  +")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLENAME);
         onCreate(db);
+
     }
 
     public void addTask(Task task){
@@ -41,7 +43,7 @@ public class DBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, task.getName());
 
         db.insert(TABLENAME, null, values);
-        db.close();
+        //db.close();
     }
 
     public Task getTask(int id){
@@ -77,7 +79,7 @@ public class DBHandler extends SQLiteOpenHelper{
         String countQuery = "SELECT * FROM " + TABLENAME;
         SQLiteDatabase db =  this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
+        //cursor.close();
 
         return cursor.getCount();
 
@@ -96,6 +98,6 @@ public class DBHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLENAME, KEY_ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
-        db.close();
+        //db.close();
     }
 }

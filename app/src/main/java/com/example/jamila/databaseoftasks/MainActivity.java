@@ -36,11 +36,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Insert", "Inserting ..");
     }
 
-    public void onClickCreate(){
+    public void onClickCreate(View view){
         Button create = (Button)findViewById(R.id.create);
-        Task t = new Task(dbHandler.getTaskCount(), "Temp");
+        int id = dbHandler.getTaskCount();
+        if(id != 0) {
+            id = (dbHandler.getAllTasks().get(id).getId()) + 1;
+        }
+        Task t = new Task(id, "Task " + id);
         dbHandler.addTask(t);
-
+        Intent send = new Intent(MainActivity.this, TaskActivity.class);
+        send.putExtra("id", id);
+        startActivity(send);
     }
     public void onClickDelete(){
         Button create = (Button)findViewById(R.id.create);
