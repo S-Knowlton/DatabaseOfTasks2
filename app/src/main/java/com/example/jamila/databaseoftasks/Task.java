@@ -6,31 +6,31 @@ import java.util.TimerTask;
 public class Task {
     private int id;
     private String name;
-    private Timer timer;
     private long currentTotal;
     private boolean completed;
+//    private Timer timer;//TODO Clean
 
+    //This constructor is used by the DBHandler
+    public Task(){}
 
-    public Task(){
-
-    }
-
+    //This constructor is used by - DBHandler:getTask(), MainActivity: onClickCreate()
     public Task(int id, String name){
 
         this.name = name;
         this.id = id;
-        timer = new Timer();
         currentTotal = 0;
         completed = false;
+//        timer = new Timer();//TODO Clean
     }
 
-    public Task(int id, String name, long currentTotal){
-
+    //This constructor is for loading up saved tasks
+    public Task(int id, String name, long currentTotal, boolean completed){
+        //TODO use this
         this.name = name;
         this.id = id;
-        timer = new Timer();
         this.currentTotal = currentTotal;
-        completed = false;
+        this.completed = completed;
+//        timer = new Timer();//TODO Clean
     }
 
     public int getId() {
@@ -65,17 +65,17 @@ public class Task {
         this.completed = completed;
     }
 
-    public void startTimer(){
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                currentTotal++;
-            }
-        }, 0, 1000);
-    }
-
-    public void stopTimer(){
-        timer.cancel();
-    }
-
+    //TODO Clean
+//    public void startTimer(){
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                currentTotal++;
+//            }
+//        }, 0, 1000);
+//    }
+//
+//    public void stopTimer(){
+//        timer.cancel();
+//    }
 }

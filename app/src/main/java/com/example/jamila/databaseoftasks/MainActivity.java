@@ -6,15 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TabHost;
-
 import java.util.ArrayList;
 import java.util.List;
+//TODO Clean
+//import android.widget.AdapterView;
+//import android.widget.TabHost;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCreate(View view){
-        Button create = (Button)findViewById(R.id.create);
+        //TODO Clean
+        //Button create = (Button)findViewById(R.id.create);
         int id = dbHandler.getTaskCount();
         if(id != 0) {
             id = (dbHandler.getAllTasks().get(id).getId()) + 1;
@@ -48,21 +49,6 @@ public class MainActivity extends AppCompatActivity {
         send.putExtra("id", id);
         startActivity(send);
     }
-    public void onClickDelete(){
-        Button create = (Button)findViewById(R.id.create);
-        Task t = new Task(dbHandler.getTaskCount(), "Temp");
-        dbHandler.deleteTask(t);
-    }
-    public void onClickUpdate(){
-        Button create = (Button)findViewById(R.id.create);
-        Task t = new Task(dbHandler.getTaskCount(), "Temp");
-        dbHandler.updateTask(t);
-    }
-    public void onClickRead(){
-        Button create = (Button)findViewById(R.id.create);
-
-        dbHandler.getTask(0);
-    }
 
     private void updateTasks(){
         List<Task> taskList =  dbHandler.getAllTasks();
@@ -71,11 +57,10 @@ public class MainActivity extends AppCompatActivity {
             Task temp = taskList.get(i);
             String s = temp.isCompleted() ? "; Complete" : "; Incomplete";
             items.add(temp.getName() + "; Time spent: " + temp.getCurrentTotal() + s);
-
         }
         for(Task t : dbHandler.getAllTasks()){
             final Button btnShow = new Button(this);
-            String s = t.getName();// + "; Time spent: " + t.getCurrentTotal() +(t.isCompleted() ? "; Complete" : "; Incomplete");
+            String s = t.getName();//TODO Re-add  + "; Time spent: " + t.getCurrentTotal() +(t.isCompleted() ? "; Complete" : "; Incomplete");
             items.add(s);
             btnShow.setText(s);
             btnShow.setPadding(60,20,60,20);
@@ -93,4 +78,20 @@ public class MainActivity extends AppCompatActivity {
             lv.addView(btnShow);
         }
     }
+
+    //TODO Clean
+//    public void onClickDelete(){
+//        Button create = (Button)findViewById(R.id.create);
+//        Task t = new Task(dbHandler.getTaskCount(), "Temp");
+//        dbHandler.deleteTask(t);
+//    }
+//    public void onClickUpdate(){
+//        Button create = (Button)findViewById(R.id.create);
+//        Task t = new Task(dbHandler.getTaskCount(), "Temp");
+//        dbHandler.updateTask(t);
+//    }
+//    public void onClickRead(){
+//        Button create = (Button)findViewById(R.id.create);
+//        dbHandler.getTask(0);
+//    }
 }

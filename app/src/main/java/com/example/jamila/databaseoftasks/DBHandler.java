@@ -1,10 +1,10 @@
 package com.example.jamila.databaseoftasks;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +26,12 @@ public class DBHandler extends SQLiteOpenHelper{
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + "TEXT"
                  +")";
         db.execSQL(CREATE_CONTACTS_TABLE);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLENAME);
         onCreate(db);
-
     }
 
     public void addTask(Task task){
@@ -52,6 +50,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 new String[] {String.valueOf(id) }, null, null, null,null);
         if(cursor != null)
             cursor.moveToFirst();
+        //TODO Should include currentTotal and complete
         Task task = new Task(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1));
         return task;
@@ -65,6 +64,7 @@ public class DBHandler extends SQLiteOpenHelper{
 
         if (cursor.moveToFirst()) {
             do {
+                //TODO Should include currentTotal and complete
                 Task task = new Task();
                 task.setId(Integer.parseInt(cursor.getString(0)));
                 task.setName(cursor.getString(2));
@@ -82,7 +82,6 @@ public class DBHandler extends SQLiteOpenHelper{
         //cursor.close();
 
         return cursor.getCount();
-
     }
 
     public int updateTask(Task task){

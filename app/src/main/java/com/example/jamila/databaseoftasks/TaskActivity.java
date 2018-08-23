@@ -2,18 +2,10 @@ package com.example.jamila.databaseoftasks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,9 +19,10 @@ public class TaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DBHandler dbHandler = new DBHandler(this);
+        dbHandler = new DBHandler(this);
         Intent i = getIntent();
         task = dbHandler.getTask(i.getIntExtra("id", 0));
+        timer = new Timer();
         setup();
     }
 
@@ -44,8 +37,7 @@ public class TaskActivity extends AppCompatActivity {
         }
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(task.getName());
-        TextView time = (TextView) findViewById(R.id.time);
-        time.setText(task.getCurrentTotal() + "");
+        updateTimerText();
     }
 
     public void onClickDelete(View view){
@@ -62,6 +54,7 @@ public class TaskActivity extends AppCompatActivity {
         stopTimer();
         task.setCurrentTotal(currentTotal);
         dbHandler.updateTask(task);
+        updateTimerText();
     }
 
     public void onClickComplete(View view){
@@ -80,16 +73,23 @@ public class TaskActivity extends AppCompatActivity {
             @Override
             public void run() {
                 currentTotal++;
-                String s = getResources().getString(R.string.time);
-                s += currentTotal;
+                //TODO Clean
+//                String s = getResources().getString(R.string.time);
+//                s += currentTotal;
                 task.setCurrentTotal(currentTotal);
                 dbHandler.updateTask(task);
+                updateTimerText();
             }
         }, 0, 1000);
     }
 
     private void stopTimer(){
         timer.cancel();
+    }
+
+    private void updateTimerText(){
+        TextView time = (TextView) findViewById(R.id.time);
+        time.setText(task.getCurrentTotal() + "");
     }
 
 }
