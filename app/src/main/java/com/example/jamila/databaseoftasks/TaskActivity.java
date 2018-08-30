@@ -19,11 +19,7 @@ public class TaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHandler = new DBHandler(this);
-        Intent i = getIntent();
-        task = dbHandler.getTask(i.getIntExtra("id", 0));
-        timer = new Timer();
-        setup();
+
     }
 
     private void setup(){
@@ -41,8 +37,7 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     public void onClickDelete(View view){
-        dbHandler.deleteTask(task);
-        Intent send = new Intent(TaskActivity.this, MainActivity.class);
+       Intent send = new Intent(TaskActivity.this, MainActivity.class);
         startActivity(send);
     }
 
@@ -53,13 +48,13 @@ public class TaskActivity extends AppCompatActivity {
     public void onClickPause(View view){
         stopTimer();
         task.setCurrentTotal(currentTotal);
-        dbHandler.updateTask(task);
+
         updateTimerText();
     }
 
     public void onClickComplete(View view){
         task.setCompleted(true);
-        dbHandler.updateTask(task);
+
         Button temp = (Button) findViewById(R.id.pause_timer_btn);
         temp.setEnabled(false);
         temp = (Button) findViewById(R.id.start_timer_btn);
@@ -77,7 +72,7 @@ public class TaskActivity extends AppCompatActivity {
 //                String s = getResources().getString(R.string.time);
 //                s += currentTotal;
                 task.setCurrentTotal(currentTotal);
-                dbHandler.updateTask(task);
+
                 updateTimerText();
             }
         }, 0, 1000);

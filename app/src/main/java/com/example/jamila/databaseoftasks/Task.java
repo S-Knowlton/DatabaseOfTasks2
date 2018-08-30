@@ -1,8 +1,10 @@
 package com.example.jamila.databaseoftasks;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
+@IgnoreExtraProperties
 public class Task {
     private int id;
     private String name;

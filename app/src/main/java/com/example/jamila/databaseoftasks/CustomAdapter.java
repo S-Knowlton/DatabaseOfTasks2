@@ -19,6 +19,9 @@ public class CustomAdapter extends BaseAdapter{
 
     LayoutInflater inflater;
 
+    public CustomAdapter(){
+
+    }
     public CustomAdapter(Context context, ArrayList<Task> task) {
         this.context = context;
         this.task = task;
