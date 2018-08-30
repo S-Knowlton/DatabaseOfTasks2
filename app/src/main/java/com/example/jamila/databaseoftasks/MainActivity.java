@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DBHandler dbHandler;
+   // private DBHandler dbHandler;
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
     private ListView lv;
@@ -27,55 +27,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_idea);
-        dbHandler = new DBHandler(this);
-        items = new ArrayList<String>();
-        lv = (ListView)findViewById(R.id.task_viewer);
-        //adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, items);
-        //lv.setAdapter(adapter);
-        updateTasks();
-        Log.d("Insert", "Inserting ..");
+
     }
 
     public void onClickCreate(View view){
         //TODO Clean
         //Button create = (Button)findViewById(R.id.create);
-        int id = dbHandler.getTaskCount();
-        if(id != 0) {
-            id = (dbHandler.getAllTasks().get(id).getId()) + 1;
-        }
-        Task t = new Task(id, "Task " + id);
-        dbHandler.addTask(t);
-        Intent send = new Intent(MainActivity.this, TaskActivity.class);
-        send.putExtra("id", id);
-        startActivity(send);
+
     }
 
     private void updateTasks(){
-        List<Task> taskList =  dbHandler.getAllTasks();
-        items.clear();
-        for(int i = 0; i < dbHandler.getTaskCount(); i++){
-            Task temp = taskList.get(i);
-            String s = temp.isCompleted() ? "; Complete" : "; Incomplete";
-            items.add(temp.getName() + "; Time spent: " + temp.getCurrentTotal() + s);
-        }
-        for(Task t : dbHandler.getAllTasks()){
-            final Button btnShow = new Button(this);
-            String s = t.getName();//TODO Re-add  + "; Time spent: " + t.getCurrentTotal() +(t.isCompleted() ? "; Complete" : "; Incomplete");
-            items.add(s);
-            btnShow.setText(s);
-            btnShow.setPadding(60,20,60,20);
-            ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0,20,0,20);
-            btnShow.setLayoutParams(lp);
-            btnShow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent send = new Intent(MainActivity.this, TaskActivity.class);
-                    send.putExtra("id", items.indexOf(btnShow.getText()));
-                    startActivity(send);
-                }
-            });
-            lv.addView(btnShow);
+
         }
     }
 
@@ -94,4 +56,4 @@ public class MainActivity extends AppCompatActivity {
 //        Button create = (Button)findViewById(R.id.create);
 //        dbHandler.getTask(0);
 //    }
-}
+

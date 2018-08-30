@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TaskActivity extends AppCompatActivity {
-    private DBHandler dbHandler;
+
     private Task task;
     private Timer timer;
     private long currentTotal;
